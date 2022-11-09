@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { FC } from 'react';
 
 export enum CardVariants {
   BORDER = 'border',
@@ -16,8 +17,7 @@ export interface CardProps {
   variant: CardVariants;
 }
 
-export function Card(props: CardProps) {
-  const { children, className, variant } = props;
+export const Card: FC<CardProps> = ({ children, className, variant }) => {
   const cardClasses = classNames(
     `jdg-card flex w-full p-3 rounded-md`,
     className,
@@ -37,6 +37,6 @@ export function Card(props: CardProps) {
   );
 
   return <div className={cardClasses}>{children && children}</div>;
-}
+};
 
 export default Card;

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { FC } from 'react';
 
 /* eslint-disable-next-line */
 export interface NavigationListProps {
@@ -6,14 +7,13 @@ export interface NavigationListProps {
   className?: string;
 }
 
-export function NavigationList(props: NavigationListProps) {
-  const { children, className } = props;
-
-  return (
-    <ul className={classNames(`jdg-navigation-list flex list-none`, className)}>
-      {children && children}
-    </ul>
-  );
-}
+export const NavigationList: FC<NavigationListProps> = ({
+  children,
+  className,
+}) => (
+  <ul className={classNames(`jdg-navigation-list flex list-none`, className)}>
+    {children && children}
+  </ul>
+);
 
 export default NavigationList;

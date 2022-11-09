@@ -1,4 +1,4 @@
-import { Layout } from '@./ui';
+import { Layout } from 'apps/remix/app/components';
 
 export default function Index() {
   return (

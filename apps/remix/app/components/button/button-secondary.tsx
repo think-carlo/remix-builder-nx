@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { FC } from 'react';
 import Button, { ButtonProps } from './button';
 import './button.css';
 
@@ -13,9 +14,11 @@ export interface ButtonSecondaryProps extends ButtonProps {
   color?: ButtonSecondaryColors;
 }
 
-export function ButtonSecondary(props: ButtonSecondaryProps) {
-  const { className, color = ButtonSecondaryColors.MID } = props;
-
+export const ButtonSecondary: FC<ButtonSecondaryProps> = ({
+  className,
+  color = ButtonSecondaryColors.MID,
+  ...props
+}) => {
   const buttonClasses = classNames(`jdg-button--secondary`, className, {
     'jdg-button--secondary-dark bg-brand-white hover:bg-brand-blue-500 focus:bg-brand-blue-500 text-brand-blue-500 hover:text-brand-white focus:text-brand-white border-brand-blue-500 focus:border-brand-white focus:outline focus:outline-brand-blue-500':
       color === ButtonSecondaryColors.DARK,
@@ -26,6 +29,6 @@ export function ButtonSecondary(props: ButtonSecondaryProps) {
   });
 
   return <Button {...props} className={buttonClasses} />;
-}
+};
 
 export default ButtonSecondary;

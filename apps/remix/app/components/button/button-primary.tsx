@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { FC } from 'react';
 import Button, { ButtonProps } from './button';
 
 export enum ButtonPrimaryColors {
@@ -11,9 +12,11 @@ export interface ButtonPrimaryProps extends ButtonProps {
   color?: ButtonPrimaryColors;
 }
 
-export function ButtonPrimary(props: ButtonPrimaryProps) {
-  const { className, color = 'mid' } = props;
-
+export const ButtonPrimary: FC<ButtonPrimaryProps> = ({
+  className,
+  color = 'mid',
+  ...props
+}) => {
   const buttonClasses = classNames(
     `jdg-button--primary text-brand-white`,
     className,
@@ -26,6 +29,6 @@ export function ButtonPrimary(props: ButtonPrimaryProps) {
   );
 
   return <Button {...props} className={buttonClasses} />;
-}
+};
 
 export default ButtonPrimary;

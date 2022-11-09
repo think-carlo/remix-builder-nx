@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { FC, useState } from 'react';
 import Button from '../button/button';
 import InputText from '../inputs/text/text';
 import Logo from '../logo/logo';
@@ -9,18 +9,8 @@ import NavigationList from '../navigation/navigation-list/navigation-list';
 import SvgClose from '../icons/close';
 import SvgMenu from '../icons/menu';
 import SvgSearch from '../icons/search';
-import { Transition } from '@headlessui/react';
 import NavigationLink from '../navigation/navigation-link/navigation-link';
 import classNames from 'classnames';
-
-const transitionProps = {
-  enter: 'transition-opacity duration-300',
-  enterFrom: 'opacity-0',
-  enterTo: 'opacity-100',
-  leave: 'transition-opacity duration-300',
-  leaveFrom: 'opacity-100',
-  leaveTo: 'opacity-0',
-};
 
 /* eslint-disable-next-line */
 export interface HeaderProps {
@@ -29,19 +19,29 @@ export interface HeaderProps {
   toggleDrawer?: () => void;
 }
 
-export function Header(props: HeaderProps) {
-  const { bottomNavigation, topNavigation, toggleDrawer } = props;
-
+export const Header: FC<HeaderProps> = ({
+  bottomNavigation,
+  topNavigation,
+  toggleDrawer,
+}) => {
   // Transition state to toggle between rendered components.
-  const [isNavigating, setIsNavigating] = useState(true);
-  const [isSearching, setIsSearching] = useState(false);
-
-  const [navIsDisplayed, setNavIsDisplayed] = useState(false);
-  const [navIsVisible, setNavIsVisible] = useState(false);
+  const [navIsDisplayed, setNavIsDisplayed] = useState(true);
+  const [navIsVisible, setNavIsVisible] = useState(true);
+  const [searchIsDisplayed, setSearchIsDisplayed] = useState(false);
+  const [searchIsVisible, setSearchIsVisible] = useState(false);
 
   const handleNavToggle = () => {
-    setNavIsVisible(!navIsVisible);
-    setTimeout(() => setNavIsDisplayed(!navIsDisplayed), 300);
+    if (navIsDisplayed) {
+      setNavIsVisible(!navIsVisible);
+      setTimeout(() => setNavIsDisplayed(!navIsDisplayed), 300);
+      setSearchIsDisplayed(!searchIsDisplayed);
+      setTimeout(() => setSearchIsVisible(!searchIsVisible), 300);
+    } else {
+      setSearchIsDisplayed(!searchIsDisplayed);
+      setTimeout(() => setSearchIsVisible(!searchIsVisible), 300);
+      setNavIsVisible(!navIsVisible);
+      setTimeout(() => setNavIsDisplayed(!navIsDisplayed), 300);
+    }
   };
 
   const bottomNavAnchorClass = 'text-brand-blue-800 border-brand-white text-sm';
@@ -100,37 +100,25 @@ export function Header(props: HeaderProps) {
           onClick={toggleDrawer}
         />
 
-        {/* <Transition
-          className="hidden lg:block"
-          show={isNavigating}
-          {...transitionProps}
-        >
-          <Navigation>
-            <NavigationList className="gap-6">
-              {bottomNavigation.map((navItem, index) => (
-                <NavigationItem key={`bottom-nav-item--${index}`}>
-                  <NavigationLink
-                    className={bottomNavAnchorClass}
-                    href={navItem.href}
-                  >
-                    {navItem.label}
-                  </NavigationLink>
-                </NavigationItem>
-              ))}
-            </NavigationList>
-          </Navigation>
-        </Transition>
+        <Navigation>
+          <NavigationList className="gap-6">
+            {bottomNavigation.map((navItem, index) => (
+              <NavigationItem key={`bottom-nav-item--${index}`}>
+                <NavigationLink
+                  className={bottomNavAnchorClass}
+                  href={navItem.href}
+                >
+                  {navItem.label}
+                </NavigationLink>
+              </NavigationItem>
+            ))}
+          </NavigationList>
+        </Navigation>
 
-        <Transition
-          className="flex-1 hidden lg:block"
-          show={isSearching}
-          {...transitionProps}
-        >
-          <InputText name="search" className="w-full" />
-        </Transition> */}
+        <InputText name="search" className="w-full" />
       </div>
     </header>
   );
-}
+};
 
 export default Header;

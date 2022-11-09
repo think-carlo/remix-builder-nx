@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import React, { FC, useState } from 'react';
 import Button from '../button/button';
-import Drawer from '../drawer/drawer';
 import Header from '../header/header';
 import InputText from '../inputs/text/text';
 import Logo from '../logo/logo';
@@ -23,9 +22,8 @@ export interface LayoutProps {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function Layout(props: LayoutProps) {
+export const Layout: FC<LayoutProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { children } = props;
 
   const mobileNavigationJSX = (
     <div className="flex flex-col gap-6 p-6 relative">
@@ -72,6 +70,6 @@ export function Layout(props: LayoutProps) {
       <Footer />
     </main>
   );
-}
+};
 
 export default Layout;

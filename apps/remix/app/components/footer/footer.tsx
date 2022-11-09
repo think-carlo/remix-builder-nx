@@ -1,3 +1,4 @@
+import React, { FC } from 'react';
 import { ButtonPrimary, ButtonPrimaryColors } from '../button';
 import Logo from '../logo/logo';
 import Navigation from '../navigation/navigation';
@@ -9,7 +10,7 @@ import SocialBar from '../social-bar/social-bar';
 /* eslint-disable-next-line */
 export interface FooterProps {}
 
-export function Footer(props: FooterProps) {
+export const Footer: FC<FooterProps> = () => {
   const footerMobileNavigation = [
     { href: '#', label: 'About Judge' },
     { href: '#', label: 'IT Consulting' },
@@ -166,6 +167,6 @@ export function Footer(props: FooterProps) {
       </p>
     </footer>
   );
-}
+};
 
 export default Footer;

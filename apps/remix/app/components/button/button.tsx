@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
 export interface ButtonProps {
   asLink?: {
@@ -12,11 +12,15 @@ export interface ButtonProps {
   onClick?: () => void;
 }
 
-export function Button(props: ButtonProps) {
-  const { asLink, children, className, icon, onClick } = props;
-
+export const Button: FC<ButtonProps> = ({
+  asLink,
+  children,
+  className,
+  icon,
+  onClick,
+}) => {
   const buttonClasses = classNames(
-    `jdg-button inline-flex flex-wrap items-center justify-center gap-2 border uppercase rounded-md p-3 text-xs font-sans font-medium transition-all tracking-wider`,
+    `jdg-button flex flex-wrap items-center justify-center gap-2 border uppercase rounded-md p-3 text-xs font-sans font-medium transition-all tracking-wider`,
     className
   );
 
@@ -37,6 +41,6 @@ export function Button(props: ButtonProps) {
       {icon && icon}
     </button>
   );
-}
+};
 
 export default Button;
