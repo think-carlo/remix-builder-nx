@@ -1,0 +1,27 @@
+.jdg-button svg {
+  @apply transition-all;
+}
+
+.jdg-button--primary svg {
+  @apply fill-brand-white;
+}
+
+.jdg-button--secondary-light svg {
+  @apply fill-brand-white;
+}
+
+.jdg-button--secondary-light:hover svg {
+  @apply fill-brand-blue-500
+}
+
+.jdg-button--secondary-dark svg {
+  @apply fill-brand-blue-500;
+}
+
+.jdg-button--secondary-dark:hover svg {
+  @apply fill-brand-white
+}
+
+.jdg-button--tertiary svg {
+  @apply fill-brand-blue-500;
+}

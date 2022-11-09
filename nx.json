@@ -12,7 +12,8 @@
           "build",
           "lint",
           "test",
-          "e2e"
+          "e2e",
+          "build-storybook"
         ],
         "accessToken": "OGI0N2I5YTMtMmFhZS00NTNmLWJhNjMtNTc0ZjU3ODhiZWM0fHJlYWQtd3JpdGU="
       }
@@ -20,23 +21,75 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "test": {
       "inputs": [
-        "production",
-        "^production"
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js",
+        "{workspaceRoot}/jest.preset.js",
+        "{workspaceRoot}/jest.preset.js"
       ]
+    },
+    "e2e": {
+      "inputs": ["default", "^production"]
+    },
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    },
+    "build-storybook": {
+      "inputs": ["default", "^production", "{workspaceRoot}/.storybook/**/*"]
     }
   },
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
-      "default"
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)"
     ],
-    "sharedGlobals": []
+    "sharedGlobals": [
+      "{workspaceRoot}/babel.config.json",
+      "{workspaceRoot}/babel.config.json"
+    ]
+  },
+  "defaultProject": "directus",
+  "generators": {
+    "@nrwl/web:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/web:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    }
+  },
+  "targetDependencies": {
+    "dev": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ],
+    "start": [
+      {
+        "target": "build",
+        "projects": "self"
+      }
+    ]
   }
 }
