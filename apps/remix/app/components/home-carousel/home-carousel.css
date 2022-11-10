@@ -1,0 +1,31 @@
+.jdg-home-carousel--images .slick-list,
+.jdg-home-carousel--images .slick-list div {
+  display: block;
+  height: 100%;
+}
+
+.jdg-home-carousel--content .slick-dots {
+  @apply relative !flex justify-center gap-4 mb-6;
+  bottom: unset;
+}
+
+.jdg-home-carousel--content .slick-dots li,
+.jdg-home-carousel--content .slick-dots button {
+  @apply h-3 w-3 m-0 p-0;
+}
+
+.jdg-home-carousel--content .slick-dots button {
+  @apply bg-brand-gray-400 rounded-full opacity-100 transition-all duration-300;
+}
+
+.jdg-home-carousel--content .slick-dots button:before {
+  content: none !important;
+}
+
+.jdg-home-carousel--content .slick-dots button .slick-dot-icon {
+  @apply hidden;
+}
+
+.jdg-home-carousel--content .slick-dots .slick-active button {
+  @apply bg-brand-blue-800;
+}

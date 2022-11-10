@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { FC } from 'react';
 import { ButtonPrimary, ButtonPrimaryColors } from '../button';
 import Logo from '../logo/logo';
@@ -8,9 +9,11 @@ import NavigationList from '../navigation/navigation-list/navigation-list';
 import SocialBar from '../social-bar/social-bar';
 
 /* eslint-disable-next-line */
-export interface FooterProps {}
+export interface FooterProps {
+  className?: string;
+}
 
-export const Footer: FC<FooterProps> = () => {
+export const Footer: FC<FooterProps> = ({ className }) => {
   const footerMobileNavigation = [
     { href: '#', label: 'About Judge' },
     { href: '#', label: 'IT Consulting' },
@@ -91,7 +94,7 @@ export const Footer: FC<FooterProps> = () => {
   ];
 
   return (
-    <footer className="flex flex-col p-6 gap-6">
+    <footer className={classNames(`flex flex-col p-6 gap-6`, className)}>
       <div className="grid grid-cols-1 lg:grid-cols-6 w-full gap-6">
         <div className="col-span-1 flex flex-col items-center gap-6">
           <Logo className="fill-brand-blue-800" />

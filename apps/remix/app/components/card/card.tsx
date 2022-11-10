@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { FC } from 'react';
 
 export enum CardVariants {
+  DEFAULT = 'default',
   BORDER = 'border',
   SHADOW = 'shadow',
   NEUTRAL = 'neutral',
@@ -22,7 +23,7 @@ export const Card: FC<CardProps> = ({ children, className, variant }) => {
     `jdg-card flex w-full p-3 rounded-md`,
     className,
     {
-      'bg-white': ['border', 'shadow'].includes(variant),
+      'bg-white': ['default', 'border', 'shadow'].includes(variant),
       'jdg-card--border border border-brand-gray-400': variant === 'border',
       'jdg-card--shadow border border-brand-gray-400 shadow-brand':
         variant === 'shadow',

@@ -23,8 +23,8 @@ export const CtaBlock: FC<CtaBlockProps> = ({
   theme,
   image,
 }) => {
-  const { href, text } = button;
-  const { src, alt } = image;
+  const { href, text } = button || {};
+  const { src, alt } = image || {};
   const ctaOverlayColor =
     theme === 'light' ? 'bg-brand-blue-500/95' : 'bg-brand-blue-800/95';
   const ctaButtonColor =
@@ -38,7 +38,7 @@ export const CtaBlock: FC<CtaBlockProps> = ({
       )}
     >
       <div className="jdg-container-wrapper px-6 md:px-8 py-14 md:py-16 lg:py-24">
-        <div className="jdg-container">
+        <div className="container mx-auto">
           <div className="jdg-cta-block-content flex flex-col gap-6 items-center">
             <h2 className="jdg-cta-block-headline font-serif text-center text-2xl md:text-4xl lg:text-5xl text-brand-white transition-all">
               {headline}

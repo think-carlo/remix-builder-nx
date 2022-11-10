@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import Button from '../button/button';
 import InputText from '../inputs/text/text';
 import Logo from '../logo/logo';
@@ -14,12 +14,14 @@ import classNames from 'classnames';
 
 /* eslint-disable-next-line */
 export interface HeaderProps {
+  className?: string;
   bottomNavigation: NavigationItemModel[];
   topNavigation: NavigationItemModel[];
   toggleDrawer?: () => void;
 }
 
 export const Header: FC<HeaderProps> = ({
+  className,
   bottomNavigation,
   topNavigation,
   toggleDrawer,
@@ -33,14 +35,22 @@ export const Header: FC<HeaderProps> = ({
   const handleNavToggle = () => {
     if (navIsDisplayed) {
       setNavIsVisible(!navIsVisible);
-      setTimeout(() => setNavIsDisplayed(!navIsDisplayed), 300);
-      setSearchIsDisplayed(!searchIsDisplayed);
-      setTimeout(() => setSearchIsVisible(!searchIsVisible), 300);
+      setTimeout(() => {
+        setNavIsDisplayed(!navIsDisplayed);
+        setTimeout(() => {
+          setSearchIsDisplayed(!searchIsDisplayed);
+          setTimeout(() => setSearchIsVisible(!searchIsVisible), 100);
+        }, 100);
+      }, 100);
     } else {
-      setSearchIsDisplayed(!searchIsDisplayed);
-      setTimeout(() => setSearchIsVisible(!searchIsVisible), 300);
-      setNavIsVisible(!navIsVisible);
-      setTimeout(() => setNavIsDisplayed(!navIsDisplayed), 300);
+      setSearchIsVisible(!searchIsVisible);
+      setTimeout(() => {
+        setSearchIsDisplayed(!searchIsDisplayed);
+        setTimeout(() => {
+          setNavIsDisplayed(!navIsDisplayed);
+          setTimeout(() => setNavIsVisible(!navIsVisible), 100);
+        }, 100);
+      }, 100);
     }
   };
 
@@ -48,74 +58,96 @@ export const Header: FC<HeaderProps> = ({
   const topNavAnchorClass = 'text-brand-white border-brand-blue-800 text-sm';
 
   return (
-    <header className="jdg-header shadow-header">
-      <div className="hidden lg:flex items-center gap-4 bg-brand-blue-800 justify-end px-6 pt-2 pb-3 ">
-        <Navigation>
-          <NavigationList className="gap-6">
-            {topNavigation.map((navItem, index) => (
-              <NavigationItem key={`top-nav-item--${index}`}>
-                <NavigationLink
-                  className={topNavAnchorClass}
-                  href={navItem.href}
-                >
-                  {navItem.label}
-                </NavigationLink>
-              </NavigationItem>
-            ))}
-          </NavigationList>
-        </Navigation>
+    <header className={classNames(`jdg-header shadow-header`, className)}>
+      <div className="hidden lg:block bg-brand-blue-800">
+        <div className="container mx-auto flex items-center gap-4 justify-end px-6 pt-2 pb-3">
+          <Navigation>
+            <NavigationList className="gap-6">
+              {topNavigation.map((navItem, index) => (
+                <NavigationItem key={`top-nav-item--${index}`}>
+                  <NavigationLink
+                    className={topNavAnchorClass}
+                    href={navItem.href}
+                  >
+                    {navItem.label}
+                  </NavigationLink>
+                </NavigationItem>
+              ))}
+            </NavigationList>
+          </Navigation>
 
-        <Button
-          className="border-none fill-brand-white pb-2 h-10 w-9"
-          icon={
-            <>
-              <SvgSearch
-                className={classNames(`transition-all`, {
-                  hidden: !navIsDisplayed,
-                  block: navIsDisplayed,
-                  'opacity-0': !navIsVisible,
-                  'opacity-100': navIsVisible,
-                })}
-              />
+          <Button
+            className="border-none fill-brand-white pb-2 h-10 w-9"
+            icon={
+              <>
+                <SvgSearch
+                  height="12"
+                  width="16"
+                  className={classNames(`transition-all duration-300`, {
+                    hidden: !navIsDisplayed,
+                    block: navIsDisplayed,
+                    'opacity-0': !navIsVisible,
+                    'opacity-100': navIsVisible,
+                  })}
+                />
 
-              <SvgClose
-                className={classNames(`transition-all`, {
-                  hidden: navIsDisplayed,
-                  block: !navIsDisplayed,
-                  'opacity-0': navIsVisible,
-                  'opacity-100': !navIsVisible,
-                })}
-              />
-            </>
-          }
-          onClick={handleNavToggle}
-        />
+                <SvgClose
+                  height="12"
+                  width="16"
+                  className={classNames(`transition-all duration-300`, {
+                    hidden: !searchIsDisplayed,
+                    block: searchIsDisplayed,
+                    'opacity-0': !searchIsVisible,
+                    'opacity-100': searchIsVisible,
+                  })}
+                />
+              </>
+            }
+            onClick={handleNavToggle}
+          />
+        </div>
       </div>
 
-      <div className="flex gap-12 items-center justify-between p-6">
-        <Logo className="fill-brand-blue-800" />
-        <Button
-          className="border-none lg:hidden"
-          icon={<SvgMenu className="fill-brand-blue-800 h-6 w-6" />}
-          onClick={toggleDrawer}
-        />
+      <div className="container mx-auto">
+        <div className="flex gap-12 items-center justify-between p-6">
+          <Logo className="fill-brand-blue-800" />
+          <Button
+            className="border-none lg:hidden"
+            icon={<SvgMenu className="fill-brand-blue-800 h-6 w-6" />}
+            onClick={toggleDrawer}
+          />
 
-        <Navigation>
-          <NavigationList className="gap-6">
-            {bottomNavigation.map((navItem, index) => (
-              <NavigationItem key={`bottom-nav-item--${index}`}>
-                <NavigationLink
-                  className={bottomNavAnchorClass}
-                  href={navItem.href}
-                >
-                  {navItem.label}
-                </NavigationLink>
-              </NavigationItem>
-            ))}
-          </NavigationList>
-        </Navigation>
+          <Navigation
+            className={classNames(`hidden transition-all duration-300`, {
+              'lg:block': navIsDisplayed,
+              'opacity-0': !navIsVisible,
+              'opacity-100': navIsVisible,
+            })}
+          >
+            <NavigationList className="gap-6">
+              {bottomNavigation.map((navItem, index) => (
+                <NavigationItem key={`bottom-nav-item--${index}`}>
+                  <NavigationLink
+                    className={bottomNavAnchorClass}
+                    href={navItem.href}
+                  >
+                    {navItem.label}
+                  </NavigationLink>
+                </NavigationItem>
+              ))}
+            </NavigationList>
+          </Navigation>
 
-        <InputText name="search" className="w-full" />
+          <InputText
+            name="search"
+            className={classNames(`w-full transition-all duration-300`, {
+              hidden: !searchIsDisplayed,
+              block: searchIsDisplayed,
+              'opacity-0': !searchIsVisible,
+              'opacity-100': searchIsVisible,
+            })}
+          />
+        </div>
       </div>
     </header>
   );

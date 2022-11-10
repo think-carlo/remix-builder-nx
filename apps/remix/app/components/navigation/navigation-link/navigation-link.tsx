@@ -15,7 +15,7 @@ export const NavigationLink: FC<NavigationLinkProps> = ({
 }) => (
   <a
     className={classNames(
-      `jdg-navigation-link block border-b-2 hover:border-brand-gray-400 font-medium px-1 pb-[2px] pt-2 transition-all`,
+      `jdg-navigation-link block border-b-2 hover:border-brand-gray-400 font-sans font-medium px-1 pb-[2px] pt-2 transition-all`,
       className
     )}
     href={href}

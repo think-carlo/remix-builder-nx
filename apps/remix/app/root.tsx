@@ -1,4 +1,4 @@
-import { builder, Builder, BuilderComponent } from '@builder.io/react';
+import { builder } from '@builder.io/react';
 import styles from './styles/app.css';
 
 builder.init('081730c2771142e386170117dec3484e');
@@ -16,7 +16,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import { CtaBlock, Layout } from './components';
+import { Layout } from './components';
+import { registerComponentsInBuilder } from './components/register';
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
@@ -44,32 +45,4 @@ export default function App() {
   );
 }
 
-Builder.registerComponent(CtaBlock, {
-  name: 'CtaBlock',
-  noWrap: true,
-  inputs: [
-    { name: 'headline', type: 'text' },
-    { name: 'theme', type: 'text', enum: ['light', 'dark'] },
-    {
-      name: 'button',
-      type: 'object',
-      subFields: [
-        { name: 'href', type: 'url', required: true },
-        { name: 'text', type: 'text', required: true },
-      ],
-    },
-    {
-      name: 'image',
-      type: 'object',
-      subFields: [
-        {
-          name: 'src',
-          type: 'file',
-          allowedFileTypes: ['jpeg', 'png'],
-          required: true,
-        },
-        { name: 'alt', type: 'text' },
-      ],
-    },
-  ],
-});
+registerComponentsInBuilder();

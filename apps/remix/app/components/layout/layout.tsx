@@ -14,6 +14,7 @@ import {
   mockMobileNavigation,
   mockTopNavigation,
 } from '../header/header.helpers';
+import Drawer from '../drawer/drawer';
 
 /* eslint-disable-next-line */
 export interface LayoutProps {
@@ -56,18 +57,17 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <main className="jdg-layout">
-      {/* <Drawer isOpen={isOpen} content={mobileNavigationJSX}>
-      </Drawer> */}
+      <Drawer isOpen={isOpen} content={mobileNavigationJSX}>
+        <Header
+          bottomNavigation={mockBottomNavigation}
+          topNavigation={mockTopNavigation}
+          toggleDrawer={() => setIsOpen(!isOpen)}
+        />
 
-      <Header
-        bottomNavigation={mockBottomNavigation}
-        topNavigation={mockTopNavigation}
-        toggleDrawer={() => setIsOpen(!isOpen)}
-      />
+        {children && children}
 
-      {children && children}
-
-      <Footer />
+        <Footer />
+      </Drawer>
     </main>
   );
 };

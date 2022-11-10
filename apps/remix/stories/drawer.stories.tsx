@@ -10,4 +10,6 @@ export default Story;
 const Template: ComponentStory<typeof Drawer> = (args) => <Drawer {...args} />;
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  isOpen: true,
+};
