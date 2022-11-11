@@ -5,20 +5,13 @@ import SvgPauseButton from '../icons/pause-button';
 import Slider from 'react-slick';
 import './home-carousel.css';
 import Button from '../button/button';
-
-export interface SlideImage {
-  src: string;
-  alt: string;
-}
+import { Image, Link } from '../../models/builder.models';
 
 export interface Slide {
-  image: SlideImage;
+  image: Image;
   headline: string;
   lede: string;
-  links: {
-    href: string;
-    label: string;
-  }[];
+  links: Link[];
 }
 
 export interface HomeCarouselProps {
@@ -123,7 +116,7 @@ export const HomeCarousel: FC<HomeCarouselProps> = ({ slides }) => {
       </Slider>
 
       <Slider
-        className="jdg-home-carousel--content lg:!absolute max-w-full md:max-w-xl lg:top-1/2 lg:-translate-y-1/2 lg:right-20 bg-brand-white/95 rounded-md"
+        className="jdg-home-carousel--content lg:!absolute max-w-full md:max-w-xl lg:max-w-2xl lg:top-1/2 lg:-translate-y-1/2 lg:right-20 bg-brand-white/95 rounded-md"
         {...contentSliderSettings}
         ref={(slider) => setContentSlider(slider)}
       >
@@ -134,12 +127,15 @@ export const HomeCarousel: FC<HomeCarouselProps> = ({ slides }) => {
           const hasLinks = links && links.length !== 0;
 
           return (
-            <div className="!flex flex-col gap-4 p-6" aria-hidden={hidden}>
+            <div
+              className="!flex flex-col gap-4 p-6 lg:p-8"
+              aria-hidden={hidden}
+            >
               <h3 className="text-brand-blue-800 font-serif text-3xl">
                 {slide.headline}
               </h3>
 
-              <p className="text-base text-brand-gray-800">{slide.lede}</p>
+              <p className="text-lg text-brand-gray-800">{slide.lede}</p>
               {hasLinks && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {links.map((link) => (

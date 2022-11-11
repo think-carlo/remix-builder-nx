@@ -4,7 +4,11 @@ const fontFamily = require('../../libs/tailwind/fontFamily');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./app/**/*.{js,ts,jsx,tsx}', './stories/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './app/**/*.{js,ts,jsx,tsx}',
+    './stories/**/*.{js,ts,jsx,tsx}',
+    './styles/**/*.{css}',
+  ],
   theme: {
     extend: {
       colors,

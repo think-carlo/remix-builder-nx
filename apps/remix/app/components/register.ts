@@ -1,5 +1,6 @@
 import { Builder } from '@builder.io/react';
 import CtaBlock from './cta-block/cta-block';
+import { FeaturedResources } from './featured-resources/featured-resources';
 import { HomeCarousel } from './home-carousel/home-carousel';
 import { StatCard } from './stat-card/stat-card';
 
@@ -35,6 +36,23 @@ export const registerComponentsInBuilder = () => {
     ],
   });
 
+  FeaturedResources;
+  Builder.registerComponent(FeaturedResources, {
+    name: 'FeaturedResources',
+    inputs: [
+      {
+        name: 'feature',
+        type: 'reference',
+        model: 'blog',
+      },
+      {
+        name: 'posts',
+        type: 'list',
+        subFields: [{ name: 'post', type: 'reference', model: 'blog' }],
+      },
+    ],
+  });
+
   // HomeCarousel
   Builder.registerComponent(HomeCarousel, {
     name: 'HomeCarousel',
@@ -60,8 +78,8 @@ export const registerComponentsInBuilder = () => {
             ],
           },
           {
-            name: 'link',
-            type: 'object',
+            name: 'links',
+            type: 'list',
             subFields: [
               { name: 'href', type: 'url' },
               { name: 'label', type: 'text' },

@@ -1,4 +1,4 @@
-import { BuilderComponent, builder, useIsPreviewing } from '@builder.io/react';
+import { BuilderComponent, builder } from '@builder.io/react';
 import type { LoaderFunction } from '@remix-run/node'; // or cloudflare/deno
 import { json } from '@remix-run/node'; // or cloudflare/deno
 import { useLoaderData } from '@remix-run/react';

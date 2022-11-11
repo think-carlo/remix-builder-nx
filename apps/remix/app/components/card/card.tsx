@@ -15,10 +15,14 @@ export enum CardVariants {
 export interface CardProps {
   children?: React.ReactNode;
   className?: string;
-  variant: CardVariants;
+  variant?: CardVariants;
 }
 
-export const Card: FC<CardProps> = ({ children, className, variant }) => {
+export const Card: FC<CardProps> = ({
+  children,
+  className,
+  variant = CardVariants.DEFAULT,
+}) => {
   const cardClasses = classNames(
     `jdg-card flex w-full p-3 rounded-md`,
     className,
